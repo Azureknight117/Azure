@@ -6,6 +6,7 @@
 class Entity
 {
 public:
+	Entity();
 	Entity(float nX, float nY, int w, int h, SDL_Texture* tex);
 	Vector2D transform;
 	SDL_Texture* texture;

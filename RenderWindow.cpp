@@ -47,8 +47,8 @@ void RenderWindow::Render(Entity& entity)
 	src.w = entity.currentFrame.w;
 	src.h = entity.currentFrame.h;
 
-	dst.x = entity.x * 4;
-	dst.y = entity.y * 4;
+	dst.x = entity.transform.x * 4;
+	dst.y = entity.transform.y * 4;
 	dst.w = entity.currentFrame.w * 4;
 	dst.h = entity.currentFrame.h * 4;
 

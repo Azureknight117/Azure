@@ -1,5 +1,8 @@
 #include "Entity.h"
 
+
+Entity::Entity()
+{}
 Entity::Entity(float nX, float nY, int nW, int nH, SDL_Texture* tex)
 	:texture(tex)
 {

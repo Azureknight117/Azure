@@ -5,6 +5,7 @@
 #include <vector>
 #include "RenderWindow.h"
 #include "Entity.h"
+#include "Player.h"
 
 int main(int argc, char**argv)
 {
@@ -28,7 +29,7 @@ int main(int argc, char**argv)
     entities.push_back(Entity(30, 30, 32, 32, grass));
     entities.push_back(Entity(30, 60, 32, 32, grass));
 
-    Entity player (10.f, 30.f, 64, 64, charTex);
+    Player player (10.f, 30.f, 64, 64, charTex);
     entities.push_back(player);
     bool gameRunning = true;
 
