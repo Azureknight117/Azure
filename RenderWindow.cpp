@@ -14,6 +14,7 @@ RenderWindow::RenderWindow(const char* title, int w, int h)
 	}
 
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	SDL_SetRenderDrawColor(renderer, 211, 211, 211, 255);
 }
 
 RenderWindow::~RenderWindow()
@@ -52,7 +53,7 @@ void RenderWindow::Render(Entity& entity)
 	dst.w = entity.currentFrame.w * 4;
 	dst.h = entity.currentFrame.h * 4;
 
-	SDL_RenderCopy(renderer, entity.texture, &src, &dst);
+	SDL_RenderCopyEx(renderer, entity.texture, &src, &dst, entity.rotation, NULL, entity.flip);
 }
 
 void RenderWindow::Draw()
