@@ -3,15 +3,18 @@
 #include <SDL_image.h>
 #include <vector>
 #include "Transform.h"
+#include "Health.h"
 
 class Entity
 {
 public:
 	Entity();
 	Entity(float nX, float nY, int w, int h, SDL_Texture* tex);
+	Entity(float nX, float nY, int w, int h, SDL_Texture* tex, float mHP);
+	~Entity();
+
 	Transform transform;
 	Vector2D velocity; 
-	float speed = .05;
 	SDL_Texture* texture;
 	SDL_Rect currentFrame;
 	double rotation = 0;
@@ -21,6 +24,9 @@ public:
 	virtual void Clean();
 	virtual void Update(float dt);
 
+	float speed = .05;
+	Health* health;
+	virtual void Destroy();
 	int CreateAnim(int r, int w, int h, int amount, int speed);
 	void SetCurAnimation(int a) { beginAnim = 0; curAnim = a; }
 	void UpdateAnimation();

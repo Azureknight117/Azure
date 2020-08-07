@@ -16,11 +16,34 @@ Entity::Entity(float nX, float nY, int nW, int nH, SDL_Texture* tex)
 	speed = 1;
 }
 
+Entity::Entity(float nX, float nY, int nW, int nH, SDL_Texture* tex, float mHP)
+	:texture(tex)
+{
+	transform.x = nX;
+	transform.y = nY;
+	currentFrame.x = 0;
+	currentFrame.y = 0;
+	currentFrame.w = nW;
+	currentFrame.h = nH;
+	center = { nW / 2, nH / 2 };
+	speed = 1;
+
+	health->InitHealth(mHP);
+}
+
+Entity::~Entity()
+{
+	delete(health);
+}
+
 void Entity::Update(float dt)
 {
 	//UpdateAnimation();
 	transform.x += (velocity.x * speed * dt);
 	transform.y += (velocity.y * speed * dt);
+
+	if (health->curHealth == 0)
+		Destroy();
 }
 
 void Entity::Draw()
@@ -73,4 +96,9 @@ void Entity::UpdateAnimation()
 			animations[curAnim].frame = 0;
 		}
 	}
+}
+
+void Entity::Destroy()
+{
+	std::cout << "I am the dead"<<std::endl;
 }
