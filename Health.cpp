@@ -1,7 +1,9 @@
 #include "Health.h"
-
 Health::Health()
-{}
+{
+	maxHealth = 100;
+	curHealth = maxHealth;
+}
 
 Health::Health(float mHP)
 {

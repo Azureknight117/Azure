@@ -9,8 +9,9 @@ Player::Player(float nX, float nY, int nW, int nH)
 	currentFrame.y = 0;
 	currentFrame.w = nW;
 	currentFrame.h = nH;
+	health = new Health(100);
 }
-Player::Player(float nX, float nY, int nW, int nH, SDL_Texture* tex)
+Player::Player(float nX, float nY, int nW, int nH,  SDL_Texture* tex)
 {
 	transform.x = nX;
 	transform.y = nY;
@@ -19,6 +20,7 @@ Player::Player(float nX, float nY, int nW, int nH, SDL_Texture* tex)
 	currentFrame.w = nW;
 	currentFrame.h = nH;
 	texture = tex;
+	health = new Health(100);
 }
 
 Player::Player(float nX, float nY, int nW, int nH, SDL_Texture* tex, float mHP)
@@ -30,7 +32,11 @@ Player::Player(float nX, float nY, int nW, int nH, SDL_Texture* tex, float mHP)
 	currentFrame.w = nW;
 	currentFrame.h = nH;
 	texture = tex;
-	health->InitHealth(mHP);
+	health = new Health(mHP);
+}
+
+Player::~Player()
+{
 }
 
 
@@ -39,13 +45,15 @@ void Player::Update(float dt)
 	Entity::Update(dt);
 }
 
-void Player::Draw(){}
-
-void Player::Clean(){}
 
 void Player::SetTex(SDL_Texture* tex)
 {
 	texture = tex;
+}
+
+void Player::Fire()
+{
+
 }
 
 void Player::Destroy()

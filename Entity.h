@@ -20,13 +20,15 @@ public:
 	double rotation = 0;
 	SDL_Point center;
 	SDL_RendererFlip flip;
+
 	virtual void Draw();
 	virtual void Clean();
 	virtual void Update(float dt);
+	virtual void Destroy();
 
 	float speed = .05;
 	Health* health;
-	virtual void Destroy();
+
 	int CreateAnim(int r, int w, int h, int amount, int speed);
 	void SetCurAnimation(int a) { beginAnim = 0; curAnim = a; }
 	void UpdateAnimation();

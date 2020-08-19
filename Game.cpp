@@ -23,10 +23,12 @@ void Game::Loop()
     RenderWindow window("Azure", WIDTH, HEIGHT);
     SDL_Texture* charTex = window.LoadTexture("Assets/Characters/Sword.png");
     SDL_Texture* starTex = window.LoadTexture("Assets/Characters/Star(Enemy).png");
-    Player player(150, 60, 32, 32, charTex);
-    Entity star(150.f, 110.f, 32, 32, starTex);
+    SDL_Texture* pBeam = window.LoadTexture("Assets/Circlebeam.png");
+    Player player(150.f, 60.f, 32, 32, charTex);
+    Entity star(190.f, 110.f, 32, 32, starTex);
     entities.push_back(star);
-
+    Projectile blast(180.f, 50.f, 8, 8, pBeam);
+    projectiles.push_back(blast);
     SDL_Event event;
     while (gameRunning)
     {
@@ -35,13 +37,28 @@ void Game::Loop()
 
         deltaTime = (double)((NOW - LAST) * 1000 / (double)SDL_GetPerformanceFrequency());
         window.Clear();
-        for (Entity& e : entities)
-        {
-            //e.Update(deltaTime);
-            window.Render(e);
-        }
+
+        Transform safe = player.transform;
         Input(event, player);
         player.Update(deltaTime);
+
+        for (Entity& e : entities)
+        {
+            e.Update(deltaTime);
+            window.Render(e);
+            if (CheckCollision(e, player))
+            {
+                player.velocity.Zero();
+                player.transform = safe;
+                std::cout << "Collision!" << std::endl;
+                break;
+            }
+        }
+        for (Projectile& p : projectiles)
+        {
+            p.Update(deltaTime);
+            window.Render(p);
+        }
         window.Render(player);
         window.Draw();
     }
@@ -120,7 +137,15 @@ void Game::Input(SDL_Event &event, Player &player)
     }
 }
 
-bool Game::Collision(Entity a, Entity b)
+bool Game::CheckCollision(Entity a, Entity b)
 {
-    return false;
+    return(a.transform.x < b.transform.x + b.currentFrame.w &&
+        a.transform.x + a.currentFrame.w > b.transform.x &&
+        a.transform.y < b.transform.y + b.currentFrame.h &&
+        a.transform.y + a.currentFrame.h > b.transform.y);
+}
+
+void Game::InitProjectile(Entity e, Projectile p)
+{
+
 }

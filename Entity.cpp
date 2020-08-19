@@ -14,6 +14,7 @@ Entity::Entity(float nX, float nY, int nW, int nH, SDL_Texture* tex)
 	currentFrame.h = nH;
 	center = { nW / 2, nH / 2 };
 	speed = 1;
+	health = new Health(100);
 }
 
 Entity::Entity(float nX, float nY, int nW, int nH, SDL_Texture* tex, float mHP)
@@ -27,13 +28,11 @@ Entity::Entity(float nX, float nY, int nW, int nH, SDL_Texture* tex, float mHP)
 	currentFrame.h = nH;
 	center = { nW / 2, nH / 2 };
 	speed = 1;
-
-	health->InitHealth(mHP);
+	health = new Health(mHP);
 }
 
 Entity::~Entity()
 {
-	delete(health);
 }
 
 void Entity::Update(float dt)
@@ -100,5 +99,5 @@ void Entity::UpdateAnimation()
 
 void Entity::Destroy()
 {
-	std::cout << "I am the dead"<<std::endl;
+	//std::cout << "I am the dead"<<std::endl;
 }

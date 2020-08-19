@@ -3,10 +3,10 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <vector>
-#include "RenderWindow.h"
 #include "Entity.h"
+#include "RenderWindow.h"
 #include "Player.h"
-
+#include "Projectile.h"
 
 class Game
 {
@@ -19,7 +19,9 @@ public:
 	void Render();
 	void Input(SDL_Event &event, Player &player);
 	void Draw();
-	bool Collision(Entity a, Entity b);
+
+	bool CheckCollision(Entity a, Entity b);
+	void InitProjectile(Entity e, Projectile p);
 
 	double deltaTime = 0;
 	Uint64 NOW, LAST = 0;
@@ -29,5 +31,6 @@ public:
 	
 private:
 	std::vector<Entity> entities;
+	std::vector<Projectile> projectiles;
 };
 
